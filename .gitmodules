@@ -1,0 +1,3 @@
+[submodule "Tool-your-text"]
+    path = Tool-your-text
+    url = https://github.com/TheMissingDev/Tool-your-text.git
