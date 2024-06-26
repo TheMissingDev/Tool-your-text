@@ -1,26 +1,28 @@
 import React, {useState}from "react";
-import {Link} from 'react-router-dom'
-import Textform from "./Textform";
+// import Textform from "./Textform";
 
-export default function About(props) {
+export default function About({setTextMode , setTheme}) {
+  const {backgroundColor , secondaryBackgroundColor , border} = setTheme
   const [myStyle, setMyStyle] = useState({
     color: 'black',
     backgroundColor:'white',
   })
   const [btnText , setBtnText] = useState('Enable Dark Mode')
   const toggleStyle = () =>{
-    if(myStyle.color == 'black'){
+    if(myStyle.backgroundColor == 'black'){
       setMyStyle({
-        color: 'white',
-        backgroundColor:'black',
-        border:'1px solid white'
+        color: 'black',
+        backgroundColor:'white',
+        border:'1px solid black'
       })
       document.querySelector('.abt').style.color = 'white'
       setBtnText('Enable Light Mode')
     } else{
       setMyStyle({
-        color: 'black',
-        backgroundColor:'white',
+        color: 'white',
+        backgroundColor:'black',
+        border:'1px solid white'
+
       })
       document.querySelector('.abt').style.color = 'white'
       setBtnText('Enable Dark Mode')
@@ -28,11 +30,11 @@ export default function About(props) {
   }
   return (
     <>
-    <div className="Accordion-div">
+    <div className="Accordion-div" style={setTextMode && {secondaryBackgroundColor}}>
     <h2 className="abt">About Us </h2>
-      <ul className="Accordion">
-        <li className="accordion-li" style={myStyle}>
-          <label htmlFor="first" className="first-label">Accordion #1 <span>&#x3e;</span></label>
+      <ul className="Accordion" style={setTextMode && {secondaryBackgroundColor}}>
+        <li className="accordion-li" style={myStyle|| {border}}>
+          <label  htmlFor="first" className="first-label">Analyze your text<span>&#x3e;</span></label>
           <input
             type="radio"
             className=""
@@ -48,8 +50,8 @@ export default function About(props) {
             </p>
           </div>
         </li>
-        <li className="accordion-li" style={myStyle}>
-          <label htmlFor="second" className="second-label">Accordion #2 <span>&#x3e;</span></label>
+        <li className="accordion-li" style={myStyle|| {border}}>
+          <label  htmlFor="second" className="second-label">Free to use<span>&#x3e;</span></label>
           <input
             type="radio"
             className=""
@@ -64,8 +66,8 @@ export default function About(props) {
             </p>
           </div>
         </li>
-        <li className="accordion-li" style={myStyle}>
-          <label htmlFor="third" className="third-label">Accordion #3 <span>&#x3e;</span></label>
+        <li className="accordion-li" style={myStyle || {border}}>
+          <label htmlFor="third" className="third-label">Browser Compatible<span>&#x3e;</span></label>
           <input
             type="radio"
             className=""

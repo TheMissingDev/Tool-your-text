@@ -3,12 +3,18 @@ import "../App.css";
 import About from "./About";
 // import Alert from "./Alert";
 
-const Textform = (props) => {
+const Textform = ({setTextMode , heading , showAlert , setTheme}) => {
+const  {textColor , secondaryTextColor , secBackgroundColor} = setTextMode
+const  {backgroundColor , secondaryBackgroundColor} = setTheme
+
+
   const [text, setText] = useState("");
 
   const handleUpClick = () => {
     if (text.length <= 0) {
-      props.showAlert("Text box cannot be empty");
+      // props.showAlert("Text box cannot be empty");
+      {showAlert("Text box cannot be empty")};
+
       // document.querySelector(".alert-div").style.display = "flex";
     } else {
       // document.querySelector(".alert-div").style.display = "none";
@@ -19,8 +25,11 @@ const Textform = (props) => {
   };
   const handleCap = () => {
     if (text.length <= 0) {
+
       // document.querySelector(".alert-div").style.display = "flex";
-      props.showAlert("Text box cannot be empty");
+      // props.showAlert("Text box cannot be empty");
+      {showAlert("Text box cannot be empty")};
+
     } else {
       // document.querySelector(".alert-div").style.display = "none";
 
@@ -41,7 +50,9 @@ const Textform = (props) => {
   const handleLoClick = () => {
     if (text.length <= 0) {
       // document.querySelector(".alert-div").style.display = "flex";
-      props.showAlert("Text box cannot be empty");
+      // props.showAlert("Text box cannot be empty");
+      {showAlert("Text box cannot be empty")};
+
     } else {
       // document.querySelector('.alert-div').style.display = 'none'
       // console.log("button was clicked");
@@ -55,7 +66,9 @@ const Textform = (props) => {
   const handleRemove = () => {
     if (text.length <= 0) {
       // document.querySelector('.alert-div').style.display = 'flex'
-      props.showAlert("No text to remove");
+      // props.showAlert("No text to remove");
+      {showAlert("Text box cannot be empty")};
+
     } else {
       // document.querySelector(".alert-div").style.display = "none";
       let newTex = text;
@@ -66,11 +79,15 @@ const Textform = (props) => {
   const handleCopy = () => {
     if (text.length <= 0) {
     // document.querySelector('.alert-div').style.display = 'flex'
-      props.showAlert("No text to copy");
+      // props.showAlert("No text to copy");
+      {showAlert("Text box cannot be empty")};
+
     } else {
       // document.querySelector(".alert-div").style.display = "none";
       navigator.clipboard.writeText(text);
-      props.showAlert("Text copied to clipboard");
+      // props.showAlert("Text copied to clipboard");
+      {showAlert("Text box cannot be empty")};
+
     }
   };
 
@@ -78,9 +95,9 @@ const Textform = (props) => {
     <>
       <div className="contain">
         <div className="textDiv">
-          <h1 className="head">{props.heading}</h1>
-          <div className="box-div">
-            <textarea
+          <h1 style = {{color: textColor}} className="head">{heading}</h1>
+          <div  style={{color:textColor}} className="box-div">
+            <textarea style={{backgroundColor:secBackgroundColor , color: textColor} && {backgroundColor: secondaryBackgroundColor}}
               id="box"
               className="box"
               value={text}
@@ -104,7 +121,7 @@ const Textform = (props) => {
             Copy text
           </button>
         </div>
-        <div className="summary">
+        <div  style = {{color:textColor}}  className="summary">
           <h1>Your text summary</h1>
           <p>
             {" "}
@@ -112,8 +129,8 @@ const Textform = (props) => {
           </p>
           <p> {0.08 * text.trim().split(" ").length} Minutes to read</p>
         </div>
-        <h2 className="preview">Preview</h2>
-        <p>
+        <h2 style = {{color:textColor}} className="preview">Preview</h2>
+        <p style = {{color:textColor}}>
           {text.length > 0
             ? text
             : "Enter something in the text box above  to preview"}

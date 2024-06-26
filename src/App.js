@@ -10,54 +10,39 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function App() {
   const [Mode, setMode] = useState({});
   const [alert, setAlert] = useState(null);
-  const [theme, setTheme] = useState();
-
+  const [theme, setTheme] = useState({})
+  const [textMode, setTextMode] = useState({});
+  const {secBackgroundColor , backgroundColor} = setTextMode
   const handleThemeBlue = () => {
     setTheme({
       backgroundColor: "blue",
+      secondaryBackgroundColor: "rgb(53, 53, 248)",
+      border: '1px solid black'
+      
     });
     document.querySelector(".container").style.backgroundColor =
       "rgb(53, 53, 248)";
-    if (window.location.href == "http://localhost:3000/about") {
-      document.querySelector(".Accordion-div").style.backgroundColor =
-        "rgb(53, 53, 248)";
-      document.querySelector(".Accordion").style.backgroundColor =
-        "rgb(53, 53, 248)";
-    } else {
-      document.querySelector(".box").style.backgroundColor = "rgb(53, 53, 248)";
-    }
   };
   const handleThemeGreen = () => {
     setTheme({
       backgroundColor: "green",
+      secondaryBackgroundColor: "rgb(106, 255, 106)",
+      border: '1px solid black'
+
     });
     document.querySelector(".container").style.backgroundColor =
       "rgb(106, 255, 106)";
-    if (window.location.href == "http://localhost:3000/about") {
-      document.querySelector(".Accordion-div").style.backgroundColor =
-        "rgb(106, 255, 106)";
-      document.querySelector(".Accordion").style.backgroundColor =
-        "rgb(106, 255, 106)";
-    } else {
-      document.querySelector(".box").style.backgroundColor =
-        "rgb(106, 255, 106)";
-    }
+   
   };
   const handleThemeGray = () => {
     setTheme({
       backgroundColor: "gray",
+      secondaryBackgroundColor: "rgb(154, 151, 151)",
+      border: '1px solid black'
+      
     });
     document.querySelector(".container").style.backgroundColor =
       "rgb(154, 151, 151)";
-    if (window.location.href == "http://localhost:3000/about") {
-      document.querySelector(".Accordion-div").style.backgroundColor =
-        "rgb(154, 151, 151)"
-      document.querySelector(".Accordion").style.backgroundColor =
-        "rgb(154, 151, 151)";
-    } else {
-      document.querySelector(".box").style.backgroundColor =
-        "rgb(154, 151, 151)";
-    }
   };
   const showAlert = (message) => {
     setAlert({
@@ -70,49 +55,35 @@ function App() {
     });
     setTheme({
       backgroundColor: "white",
+      secondaryBackgroundColor:"rgb(205, 205, 205)"
     });
-    showAlert("Light mode has been enabled");
-    document.title = "ToolYourText - Light Mode";
+    setTextMode({
+      textColor: "black",
+      secondaryTextColor: "white",
+      secBackgroundColor: "rgb(205, 205, 205)",
+    });
     document.querySelector(".container").style.backgroundColor =
-      "rgb(205, 205, 205)";
-    if(window.location.href == "http://localhost:3000/about"){
-      document.querySelector(".Accordion-div").style.backgroundColor =
-      "rgb(205, 205, 205)"
-    document.querySelector(".Accordion").style.backgroundColor =
-      "rgb(205, 205, 205)";
-      // document.querySelector('.accordion-li').style.backgroundColor = "rgb(190 , 190, 190)"
-    }
-      if(window.location.href !== "http://localhost:3000/about"){
-        document.querySelector(".box").style.backgroundColor = "rgb(205, 205, 205)";
-        document.querySelector(".box").style.color = "black";
-        document.querySelector(".summary").style.color = "black";
-        document.querySelector(".contain").style.color = "black";
-        document.querySelector(".head").style.color = "black";
-      }
+    "rgb(205, 205, 205)";
+    showAlert("Light mode has been enabled");
+    // document.title = "ToolYourText - Light Mode";
     if (Mode.backgroundColor === "white") {
-      setTheme(null);
+      setTheme({
+      backgroundColor: "dimgray",
+
+      });
       setMode({
+        color: "white",
         backgroundColor: "dimgray",
       });
-      showAlert("Dark mode has been enabled");
-      document.title = "ToolYourText - Dark Mode";
+      setTextMode({
+        textColor: "white",
+        secondaryTextColor: "white",
+        secBackgroundColor: "black",
+      });
       document.querySelector(".container").style.backgroundColor =
       "black";
-      if(window.location.href == "http://localhost:3000/about"){
-        document.querySelector(".Accordion-div").style.backgroundColor =
-        "black"
-      document.querySelector(".Accordion").style.backgroundColor =
-        "black";
-        // document.querySelector('.accordion-li').style.backgroundColor = "rgb(190 , 190, 190)"
-      }
-      if(window.location.href !== "http://localhost:3000/about"){
-        document.querySelector(".box").style.backgroundColor = "black";
-        document.querySelector(".box").style.color = "white";
-        document.querySelector(".container").style.backgroundColor = "black";
-        document.querySelector(".summary").style.color = "white";
-        document.querySelector(".contain").style.color = "white";
-        document.querySelector(".head").style.color = "white";
-      }
+      showAlert("Dark mode has been enabled");
+      // document.title = "ToolYourText - Dark Mode";
     }
   };
   setTimeout(() => {
@@ -131,18 +102,19 @@ function App() {
           handleThemeGray={handleThemeGray}
         />
         <Alert alert={alert} />
-        <div className="container">
+        <div style={{secBackgroundColor}} className="container">
           <Routes>
             <Route
               exact
               path="/about"
               element={
                 <About
+                  setTextMode={textMode}
                   setTheme={theme}
                   handleThemeBlue={handleThemeBlue}
                   handleThemeGreen={handleThemeGreen}
                   handleThemeGray={handleThemeGray}
-                  toggleMode = {toggleMode}
+                  toggleMode={toggleMode}
                 />
               }
             />
@@ -151,6 +123,8 @@ function App() {
               path="/"
               element={
                 <Textform
+                  setTextMode={textMode}
+                  setTheme={theme}
                   showAlert={showAlert}
                   heading="Enter text below"
                   mode={Mode}
